@@ -1,0 +1,32 @@
+---
+title: "Leaflet map"
+author: "John Andoh"
+date: "7/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## RMarkdown Leaflet assignment
+
+###Some Universities in Ghana
+```{r, echo=F}
+library(dplyr)
+library(leaflet)
+
+Uni<-data.frame(name = c("University of Ghana","Kwame Nkrumah University of Science and Technology","Ashesi University","University of Cape Coast","University of Education","Valley View University"), 
+                 pop = c(40000,56000,1200,6000,46000,15000), 
+                 lat =c(5.650562,6.674504,5.759800,5.103506,5.4415677,5.799337), 
+                 lng = c(-0.1962244,-1.5716114,-0.2197507,-1.2824830,-0.9529959,-0.1260682), 
+                 status =c("Blue","Blue","Yellow","Blue","Blue","Yellow"),
+                stringsAsFactors = F)
+Uni%>%
+  leaflet()%>%
+  addTiles()%>%
+  addCircleMarkers(label = Uni$name, color = Uni$status)%>%
+  addCircles(weight = 1, radius=sqrt(Uni$pop)*40)%>%
+  addLegend(labels = c("Public","Private"), colors = c("blue", "yellow"))
+```
+
